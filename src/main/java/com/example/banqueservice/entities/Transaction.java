@@ -13,7 +13,7 @@ public class Transaction {
     private double montant;
 
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private String date;
 
     @Enumerated(EnumType.STRING)
     private TypeTransaction type;
@@ -24,7 +24,7 @@ public class Transaction {
 
     public Transaction() {}
 
-    public Transaction(Long id, double montant, Date date, TypeTransaction type, Compte compte) {
+    public Transaction(Long id, double montant, String date, TypeTransaction type, Compte compte) {
         this.id = id;
         this.montant = montant;
         this.date = date;
@@ -39,8 +39,8 @@ public class Transaction {
     public double getMontant() { return montant; }
     public void setMontant(double montant) { this.montant = montant; }
 
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
 
     public TypeTransaction getType() { return type; }
     public void setType(TypeTransaction type) { this.type = type; }

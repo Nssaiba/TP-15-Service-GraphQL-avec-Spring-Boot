@@ -1,7 +1,10 @@
 package com.example.banqueservice.entities;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Compte {
@@ -17,6 +20,9 @@ public class Compte {
 
     @Enumerated(EnumType.STRING)
     private TypeCompte type;
+
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Compte() {
     }
@@ -58,5 +64,19 @@ public class Compte {
 
     public void setType(TypeCompte type) {
         this.type = type;
+    }
+
+    public double getSoldeCalculé() {
+        double total = 0;
+        if (transactions != null) {
+            for (Transaction t : transactions) {
+                if (t.getType() == TypeTransaction.DEPOT) {
+                    total += t.getMontant();
+                } else if (t.getType() == TypeTransaction.RETRAIT) {
+                    total -= t.getMontant();
+                }
+            }
+        }
+        return total;
     }
 }
